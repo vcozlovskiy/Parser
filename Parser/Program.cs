@@ -6,6 +6,7 @@ namespace Parser
     {
         static void Main(string[] args)
         {
+            string o = "assd";
 
         }
     }
