@@ -2,8 +2,9 @@
 using System.IO;
 using System.Threading;
 using Parser.TextElements;
+using System.Linq;
 using System.Threading.Tasks;
-using System.Collections.Generic;
+using Parser.StaticSearcher;
 using Parser.ITextElements;
 
 namespace Parser
@@ -12,15 +13,17 @@ namespace Parser
     {
         static async Task Main(string[] args)
         {
-            Parser f = new Parser();
-            Environment.CurrentDirectory = @"C:\Users\kozlo\source\repos\Parser\Parser";
-            string d = await f.ReadFileAsync("Text.txt");
-            List<IPage> p = Parser.LinesToPages(Parser.WordsToLines(d.Split(" ")));
+            IParser f = new Parser();
+            IText text = await f.Parse(@"C:\Users\kozlo\source\repos\Parser\Parser\Text.txt");
 
-            foreach (IPage lin in p)
-            {
-                Console.WriteLine(lin.WordsOnPage);
-            }
+            Searcher s = new Searcher(text);
+
+            int i = text.LineNumber(text.Pages.First().Lines.Last()) + 1;
+
+            s.SortByAlphabet();
+            s.WordsRepeats();
+            s.WordsShow();
+            s.FindWordInLines("are");
         }
     }
 }

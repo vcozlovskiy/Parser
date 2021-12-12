@@ -9,14 +9,33 @@ namespace Parser.TextElements
 {
     class Text : IText
     {
+        
         public IEnumerable<IPage> Pages { get; }
 
+        public string TextOnPage 
+        { 
+            get
+            {
+                string text = string.Empty;
 
-        public Text(string Text)
+                foreach (IPage page in Pages)
+                {
+                    text += page;
+                }
+
+                return text;
+            } 
+        }
+        public Text(IEnumerable<IPage> text)
         {
-            string[] lines = Text.Split("\r\n");
+            Pages = text;
+        }
 
-            
+        public int LineNumber(ILine line)
+        {
+            return Pages
+                .Select((a, i) => (a.Lines.First().Words.First() == line.Words.First()) ? i : -1)
+                .Max();
         }
     }
 }

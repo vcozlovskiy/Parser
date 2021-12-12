@@ -19,18 +19,14 @@ namespace Parser
         private static int WordsOnPage { get; } 
                = int.Parse(ConfigurationManager.AppSettings.Get("NumberOfWordsOnPage"));
 
-        public Task<IText> Parse(string path)
+        public async Task<IText> Parse(string path)
         {
-            Task<string> rezult;
+            string d = await ReadFileAsync(path);
+            List<IPage> pages = Parser.LinesToPages(Parser.WordsToLines(d.Split(" ")));
 
-            using (StreamReader streamReader = new StreamReader(path))
-            {
-                rezult = streamReader.ReadToEndAsync();
-            }
-
-            throw new System.Exception();
+            return new Text(pages);
         }
-        public static List<ILine> WordsToLines(IEnumerable<string> words)
+        private static List<ILine> WordsToLines(IEnumerable<string> words)
         {
             List<ILine> lines = new List<ILine>();
 
@@ -47,7 +43,7 @@ namespace Parser
             return lines;
         }
 
-        public static List<IPage> LinesToPages(IEnumerable<ILine> lines)
+        private static List<IPage> LinesToPages(IEnumerable<ILine> lines)
         {
             List<IPage> Pages = new List<IPage>();
             List<ILine> linesList = lines.ToList();
@@ -67,7 +63,7 @@ namespace Parser
             return Pages;
         }
 
-        public async Task<string> ReadFileAsync(string filePath)
+        private static async Task<string> ReadFileAsync(string filePath)
         {
             return await Task.Run(() => {
                 using (StreamReader sr = new StreamReader(filePath))
