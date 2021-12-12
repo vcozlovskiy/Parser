@@ -8,6 +8,6 @@ namespace Parser.ITextElements
 {
     interface IParsebly
     {
-        List<string> Content { get; }
+        IEnumerable<string> Content { get; }
     }
 }

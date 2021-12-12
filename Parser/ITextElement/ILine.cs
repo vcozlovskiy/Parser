@@ -8,6 +8,7 @@ namespace Parser.ITextElements
 {
     interface ILine
     {
-        List<string> Words { get; }
+        IEnumerable<string> Words { get; }
+        public int WordsInLine { get { return Words.Count(); } }
     }
 }

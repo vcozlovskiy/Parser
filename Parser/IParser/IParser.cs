@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Parser.ITextElements;
 
-namespace Parser.ITextElements
+namespace Parser
 {
-    interface IText
+    interface IParser
     {
-        IEnumerable<IPage> Pages { get; }
+        Task<IText> Parse(string path);
     }
 }

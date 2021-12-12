@@ -9,11 +9,14 @@ namespace Parser.TextElements
 {
     class Text : IText
     {
-        public List<IPage> Pages { get; }
+        public IEnumerable<IPage> Pages { get; }
 
-        public Text(List<IPage> pages)
+
+        public Text(string Text)
         {
-            Pages = pages;
+            string[] lines = Text.Split("\r\n");
+
+            
         }
     }
 }
