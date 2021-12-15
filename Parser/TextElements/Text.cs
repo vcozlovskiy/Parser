@@ -9,11 +9,11 @@ namespace Parser.TextElements
 {
     class Text : IText
     {
-        
+
         public IEnumerable<IPage> Pages { get; }
 
-        public string TextOnPage 
-        { 
+        public string TextOnPage
+        {
             get
             {
                 string text = string.Empty;
@@ -24,11 +24,28 @@ namespace Parser.TextElements
                 }
 
                 return text;
-            } 
+            }
         }
         public Text(IEnumerable<IPage> text)
         {
             Pages = text;
+        }
+        public List<ILine> GetAllWords()
+        {
+            StringBuilder stringBuilder = new StringBuilder();
+            List<ILine> wordILine = new List<ILine>();
+
+            Pages.ToList().ForEach((x) => stringBuilder.Append(x.ToString()));
+
+            List<string> words = stringBuilder.ToString().Split(' ', ',', '.', '\n',
+                '\r', ':', ';', '(', ')', '?', '!', '“', '’').ToList();
+
+            var wordsTrimd = words.Where(
+                (word) => !string.IsNullOrEmpty(word) && !int.TryParse(word, out int g));
+
+            wordILine.AddRange(wordsTrimd.Select(word => new Line(word)));
+
+            return wordILine;
         }
 
         public int LineNumber(ILine line)

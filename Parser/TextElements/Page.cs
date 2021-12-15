@@ -10,7 +10,9 @@ namespace Parser.TextElements
 {
     class Page : IPage
     {
-        public int WordsOnPage { get 
+        public int WordsOnPage
+        {
+            get
             {
                 int coutn = 0;
 
@@ -20,8 +22,8 @@ namespace Parser.TextElements
                 }
 
                 return coutn;
-            } 
-        } 
+            }
+        }
 
         public IEnumerable<ILine> Lines { get; }
 
@@ -37,7 +39,7 @@ namespace Parser.TextElements
             foreach (Line line in Lines)
             {
                 stringBuilder.Append(line);
-                stringBuilder.Append("\n");
+                stringBuilder.Append(Environment.NewLine);
             }
 
             return stringBuilder.ToString();

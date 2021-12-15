@@ -14,17 +14,12 @@ namespace Parser.TextElements
         public IEnumerable<string> Words { get; }
 
 
-        public int WordsInLine { get { return Words.Count(); } } 
+        public int WordsInLine { get { return Words.Count(); } }
 
 
         public Line(IEnumerable<string> words)
         {
-            List<string> wordList = new List<string>();
-            foreach (string word in words)
-            {
-                wordList.Add(word.Replace('.',' ').Replace(',',' '));
-            }
-            Words = wordList;
+            Words = words;
         }
 
         public Line(string word)
@@ -35,7 +30,7 @@ namespace Parser.TextElements
         public override string ToString()
         {
             StringBuilder line = new StringBuilder();
-            foreach(string word in Words)
+            foreach (string word in Words)
             {
                 line.Append(word + " ");
             }
