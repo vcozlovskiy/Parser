@@ -74,16 +74,50 @@ namespace Parser.StaticSearcher
             return stringBuilder.ToString();
         }
 
-        public void ResultShow()
+        public void GetWordsAndShow()
         {
             int index = 0;
-
-            foreach (ILine line in _words)
+            for (char letter = 'a'; letter < 'z'; letter++) 
             {
-                Console.WriteLine($"{line} ..... {WordsRepeats(line.Words.First())}" +
-                    $": {FindWordInLines(_words[index].Words.First())}");
-                index++;
+                var wordsByAlphavit = _words.Where((word) => word.Words.First().StartsWith(letter));
+
+                if (wordsByAlphavit.Any())
+                {
+                    Console.WriteLine(letter.ToString().ToUpper() + ":");
+                }
+
+                foreach (ILine line in wordsByAlphavit)
+                {
+                    Console.WriteLine($"    {line} ..... {WordsRepeats(line.Words.First())}" +
+                        $": {FindWordInLines(_words[index].Words.First())}");
+                    index++;
+                }
             }
+        }
+
+        public List<string> GetResult()
+        {
+            List<string> result = new List<string>();
+
+            int index = 0;
+            for (char letter = 'a'; letter < 'z'; letter++)
+            {
+                var wordsByAlphavit = _words.Where((word) => word.Words.First().StartsWith(letter));
+
+                if (wordsByAlphavit.Any())
+                {
+                    result.Add(letter.ToString().ToUpper() + ":");
+                }
+
+                foreach (ILine line in wordsByAlphavit)
+                {
+                    result.Add($"    {line} ..... {WordsRepeats(line.Words.First())}" +
+                        $": {FindWordInLines(_words[index].Words.First())}");
+                    index++;
+                }
+            }
+
+            return result;
         }
     }
 }
