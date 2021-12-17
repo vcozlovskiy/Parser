@@ -1,8 +1,4 @@
 ﻿using System;
-using System.IO;
-using System.Threading;
-using Parser.TextElements;
-using System.Linq;
 using System.Threading.Tasks;
 using Parser.StaticSearcher;
 using Parser.ITextElements;
